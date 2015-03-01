@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Cloud</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_add_service_account">addServiceAccount</string>
+    <string name="provider_prompt">Choose a Provider</string>
+    <string-array name="provider-arrays">
+        <item>Google Drive</item>
+        <item>Dropbox</item>
+        <item>Apple Icloud</item>
+        <item>Microsoft Onedrive</item>
+        <item>Box</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="@dimen/abc_action_bar_default_height_material"
+    android:layout_width="@dimen/abc_action_bar_default_height_material"
+    android:src="@drawable/header"
+    android:tileMode="repeat" />
