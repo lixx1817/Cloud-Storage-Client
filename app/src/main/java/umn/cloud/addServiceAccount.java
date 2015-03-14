@@ -4,6 +4,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.content.Intent;
+
+
 
 
 public class addServiceAccount extends ActionBarActivity {
@@ -11,6 +14,7 @@ public class addServiceAccount extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
         setContentView(R.layout.activity_add_service_account);
     }
 

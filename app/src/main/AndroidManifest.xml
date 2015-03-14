@@ -18,11 +18,19 @@
         </activity>
         <activity
             android:name=".addServiceAccount"
-            android:label="@string/title_activity_add_service_account" >
+            android:label="@string/title_activity_add_service_account"
+            android:parentActivityName=".dashBoard">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".dashBoard" />
         </activity>
         <activity
             android:name=".selectTargetAccount"
             android:label="@string/title_activity_select_target_account" >
+        </activity>
+        <activity
+            android:name=".setSyncTime"
+            android:label="@string/title_activity_set_sync_time" >
         </activity>
     </application>
 
