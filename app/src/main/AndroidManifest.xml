@@ -20,6 +20,10 @@
             android:name=".addServiceAccount"
             android:label="@string/title_activity_add_service_account" >
         </activity>
+        <activity
+            android:name=".selectTargetAccount"
+            android:label="@string/title_activity_select_target_account" >
+        </activity>
     </application>
 
 </manifest>

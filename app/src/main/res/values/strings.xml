@@ -6,6 +6,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_add_service_account">addServiceAccount</string>
     <string name="provider_prompt">Choose a Provider</string>
+
     <string-array name="provider-arrays">
         <item>Google Drive</item>
         <item>Dropbox</item>
@@ -13,5 +14,7 @@
         <item>Microsoft Onedrive</item>
         <item>Box</item>
     </string-array>
+
+    <string name="title_activity_select_target_account">selectTargetAccount</string>
 
 </resources>
