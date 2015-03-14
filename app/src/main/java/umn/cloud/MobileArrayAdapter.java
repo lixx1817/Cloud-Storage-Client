@@ -37,9 +37,9 @@ public class MobileArrayAdapter extends ArrayAdapter<String> {
         System.out.println(s);
 
         if (s.equals("DropBox")) {
-            imageView.setImageResource(R.drawable.dropboxIcon);
+            imageView.setImageResource(R.drawable.dropboxicon);
         } else if (s.equals("GoogleDoc")) {
-            imageView.setImageResource(R.drawable.googleDocIcon);
+            imageView.setImageResource(R.drawable.googledocicon);
         }
 
         return rowView;

@@ -13,14 +13,14 @@
         android:layout_marginLeft="5px"
         android:layout_marginRight="20px"
         android:layout_marginTop="5px"
-        android:src="@drawable/googleDocIcon" >
+        android:src="@drawable/googledocicon" >
     </ImageView>
 
     <TextView
         android:id="@+id/label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@+id/label"
+        android:text="Default"
         android:textSize="30px" >
     </TextView>
 </RelativeLayout>
