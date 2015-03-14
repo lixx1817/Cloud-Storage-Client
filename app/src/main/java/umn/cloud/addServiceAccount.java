@@ -5,11 +5,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
+import com.google.android.gms.common.AccountPicker;
+
 
 
 
 
 public class addServiceAccount extends ActionBarActivity {
+
+    static final int REQUEST_CODE_PICK_ACCOUNT = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,4 +44,12 @@ public class addServiceAccount extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void pickUserAccount() {
+        String[] accountTypes = new String[]{"com.google"};
+        Intent intent = AccountPicker.newChooseAccountIntent(null, null,
+                accountTypes, false, null, null, null, null);
+        startActivityForResult(intent, REQUEST_CODE_PICK_ACCOUNT);
+    }
+
 }
