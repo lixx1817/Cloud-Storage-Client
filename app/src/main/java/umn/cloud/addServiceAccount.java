@@ -18,6 +18,10 @@ import com.google.android.gms.common.AccountPicker;
 public class addServiceAccount extends ActionBarActivity {
 
     static final int REQUEST_CODE_PICK_ACCOUNT = 1000;
+    static final String googleDrive_Scope="https://www.googleapis.com/auth/drive.file ";
+    static final String  googlePlus_Scope="https://www.googleapis.com/auth/plus.login";
+     static final String SCOPE =
+            "oauth2:server:client_id:979484502896-bu5qe6a14sgptmnamihtof8skbfgfbe5.apps.googleusercontent.com:api_scope:"+googleDrive_Scope+googlePlus_Scope;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +70,7 @@ public class addServiceAccount extends ActionBarActivity {
                 Toast.makeText(this, mEmail, Toast.LENGTH_SHORT).show();
                 // With the account name acquired, go get the auth token
                 //getUsername();
+                new GetUsernameTask(addServiceAccount.this, mEmail, SCOPE).execute();
             } else if (resultCode == RESULT_CANCELED) {
                 // The account picker dialog closed without selecting an account.
                 // Notify users that they must pick an account to proceed.
@@ -74,6 +79,7 @@ public class addServiceAccount extends ActionBarActivity {
         }
         // Later, more code will go here to handle the result from some exceptions...
     }
-    
+
+
 
 }

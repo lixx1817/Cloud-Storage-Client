@@ -1,7 +1,7 @@
 package umn.cloud;
 
-import android.app.Activity;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
@@ -13,11 +13,14 @@ import java.io.IOException;
  * Created by AngusY on 3/14/15.
  */
 public class GetUsernameTask extends AsyncTask<Void, Void, Void> {
-    Activity mActivity;
+    addServiceAccount mActivity;
     String mScope;
     String mEmail;
 
-    GetUsernameTask(Activity activity, String name, String scope) {
+    public static final String TAG = "YourClassName";
+
+
+    GetUsernameTask(addServiceAccount activity, String name, String scope) {
         this.mActivity = activity;
         this.mScope = scope;
         this.mEmail = name;
@@ -34,6 +37,7 @@ public class GetUsernameTask extends AsyncTask<Void, Void, Void> {
             if (token != null) {
                 // Insert the good stuff here.
                 // Use the token to access the user's Google data.
+                Log.d("This is the output", token);
 
             }
         } catch (IOException e) {
@@ -53,10 +57,12 @@ public class GetUsernameTask extends AsyncTask<Void, Void, Void> {
         try {
             return GoogleAuthUtil.getToken(mActivity, mEmail, mScope);
         } catch (UserRecoverableAuthException userRecoverableException) {
+            Log.d("An recoverable exception has occured", userRecoverableException.toString());
             // GooglePlayServices.apk is either old, disabled, or not present
             // so we need to show the user some UI in the activity to recover.
-            mActivity.handleException(userRecoverableException);
+            //mActivity.handleException(userRecoverableException);
         } catch (GoogleAuthException fatalException) {
+            Log.d("An exception has occured", fatalException.toString());
             // Some other type of unrecoverable exception has occurred.
             // Report and log the error as appropriate for your app.
 

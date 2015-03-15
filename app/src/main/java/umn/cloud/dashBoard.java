@@ -1,11 +1,11 @@
 package umn.cloud;
 
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.*;
-import android.content.Intent;
+import android.view.View;
 
 
 public class dashBoard extends ActionBarActivity {
@@ -43,4 +43,11 @@ public class dashBoard extends ActionBarActivity {
         Intent intent = new Intent(this, addServiceAccount.class);
         startActivity(intent);
     }
+    static final int REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR = 1001;
+
+    /**
+     * This method is a hook for background threads and async tasks that need to
+     * provide the user a response UI when an exception occurs.
+     */
+
 }
