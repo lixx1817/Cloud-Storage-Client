@@ -1,5 +1,6 @@
 package umn.cloud;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -56,8 +57,13 @@ public class GetUsernameTask extends AsyncTask<Void, Void, Void> {
     protected String fetchToken() throws IOException {
         try {
             return GoogleAuthUtil.getToken(mActivity, mEmail, mScope);
-        } catch (UserRecoverableAuthException userRecoverableException) {
-            Log.d("An recoverable exception has occured", userRecoverableException.toString());
+        } catch (UserRecoverableAuthException e) {
+            Log.d("An exception has occured", e.toString());
+            Intent intent = (e).getIntent();
+            mActivity.startActivityForResult(intent,
+                    1002);
+
+            //Log.d("An exception has occured", e.toString());
             // GooglePlayServices.apk is either old, disabled, or not present
             // so we need to show the user some UI in the activity to recover.
             //mActivity.handleException(userRecoverableException);
