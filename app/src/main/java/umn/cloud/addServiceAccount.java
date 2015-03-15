@@ -4,6 +4,7 @@ import android.accounts.AccountManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,10 +19,13 @@ import com.google.android.gms.common.AccountPicker;
 public class addServiceAccount extends ActionBarActivity {
 
     static final int REQUEST_CODE_PICK_ACCOUNT = 1000;
+    static final int REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR = 1001;
+    static final int REQUEST_CODE_RECOVER_FROM_AUTH_ERROR = 1002;
     static final String googleDrive_Scope="https://www.googleapis.com/auth/drive.file ";
     static final String  googlePlus_Scope="https://www.googleapis.com/auth/plus.login";
      static final String SCOPE =
             "oauth2:server:client_id:979484502896-bu5qe6a14sgptmnamihtof8skbfgfbe5.apps.googleusercontent.com:api_scope:"+googleDrive_Scope+googlePlus_Scope;
+    static final String TAG="test";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +79,13 @@ public class addServiceAccount extends ActionBarActivity {
                 // The account picker dialog closed without selecting an account.
                 // Notify users that they must pick an account to proceed.
                 Toast.makeText(this, R.string.pick_account, Toast.LENGTH_SHORT).show();
+            }
+            else if ((requestCode == REQUEST_CODE_RECOVER_FROM_AUTH_ERROR ||
+                    requestCode == REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR)
+                    && resultCode == RESULT_OK) {
+                // Receiving a result that follows a GoogleAuthException, try auth again
+                Log.d("we have returned", TAG);
+                new GetUsernameTask(addServiceAccount.this, mEmail, SCOPE).execute();
             }
         }
         // Later, more code will go here to handle the result from some exceptions...
