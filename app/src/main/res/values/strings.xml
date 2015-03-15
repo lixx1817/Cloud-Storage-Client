@@ -6,6 +6,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_add_service_account">addServiceAccount</string>
     <string name="provider_prompt">Choose a Provider</string>
+    <string name="pick_account">Pick a account</string>
 
     <string-array name="provider_arrays">
         <item>Google Drive</item>

@@ -1,10 +1,14 @@
 package umn.cloud;
 
-import android.support.v7.app.ActionBarActivity;
+import android.accounts.AccountManager;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.content.Intent;
+import android.view.View;
+import android.widget.Toast;
+
 import com.google.android.gms.common.AccountPicker;
 
 
@@ -45,11 +49,31 @@ public class addServiceAccount extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void pickUserAccount() {
+    public void pickUserAccount(View view) {
         String[] accountTypes = new String[]{"com.google"};
         Intent intent = AccountPicker.newChooseAccountIntent(null, null,
                 accountTypes, false, null, null, null, null);
         startActivityForResult(intent, REQUEST_CODE_PICK_ACCOUNT);
     }
+    String mEmail; // Received from newChooseAccountIntent(); passed to getToken()
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE_PICK_ACCOUNT) {
+            // Receiving a result from the AccountPicker
+            if (resultCode == RESULT_OK) {
+                mEmail = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
+                Toast.makeText(this, mEmail, Toast.LENGTH_SHORT).show();
+                // With the account name acquired, go get the auth token
+                //getUsername();
+            } else if (resultCode == RESULT_CANCELED) {
+                // The account picker dialog closed without selecting an account.
+                // Notify users that they must pick an account to proceed.
+                Toast.makeText(this, R.string.pick_account, Toast.LENGTH_SHORT).show();
+            }
+        }
+        // Later, more code will go here to handle the result from some exceptions...
+    }
+    
 
 }
