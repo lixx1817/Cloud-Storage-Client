@@ -29,7 +29,7 @@ import java.util.zip.GZIPInputStream;
  * Created by AngusY on 3/14/15.
  * Asyntask for fetching token and send Json to server
  */
-public class GetUsernameTask extends AsyncTask<Void, Void, Void> {
+public class GetTokenTask extends AsyncTask<Void, Void, Void> {
     addServiceAccount mActivity;
     String mScope;
     String mEmail;
@@ -38,7 +38,7 @@ public class GetUsernameTask extends AsyncTask<Void, Void, Void> {
     public static final String wurl = "ec2-54-213-7-206.us-west-2.compute.amazonaws.com";
 
 
-    GetUsernameTask(addServiceAccount activity, String name, String scope) {
+    GetTokenTask(addServiceAccount activity, String name, String scope) {
         this.mActivity = activity;
         this.mScope = scope;
         this.mEmail = name;

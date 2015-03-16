@@ -2,10 +2,12 @@ package umn.cloud;
 
 import android.accounts.AccountManager;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +29,8 @@ public class addServiceAccount extends ActionBarActivity {
      static final String SCOPE =
             "oauth2:server:client_id:979484502896-bu5qe6a14sgptmnamihtof8skbfgfbe5.apps.googleusercontent.com:api_scope:"+googleDrive_Scope+googlePlus_Scope;
     static final String TAG="test";
+
+    String mEmail; // Received from newChooseAccountIntent(); passed to getToken()
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,23 +62,28 @@ public class addServiceAccount extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void pickUserAccount(View view) {
+    public void greetUser(View view){
+
+        pickUserAccount();
+    }
+
+    public void pickUserAccount() {
         String[] accountTypes = new String[]{"com.google"};
         Intent intent = AccountPicker.newChooseAccountIntent(null, null,
                 accountTypes, false, null, null, null, null);
         startActivityForResult(intent, REQUEST_CODE_PICK_ACCOUNT);
+       // Toast.makeText(this, "You have added your account successfully", Toast.LENGTH_SHORT).show();
     }
-    String mEmail; // Received from newChooseAccountIntent(); passed to getToken()
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_PICK_ACCOUNT) {
             if (resultCode == RESULT_OK) {
                 mEmail = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
-                Toast.makeText(this, mEmail, Toast.LENGTH_SHORT).show();
-                // With the account name acquired, go get the auth token
-                //getUsername();
-                new GetUsernameTask(addServiceAccount.this, mEmail, SCOPE).execute();
+                new GetTokenTask(addServiceAccount.this, mEmail, SCOPE).execute();
+
+
             } else if (resultCode == RESULT_CANCELED) {
                 // The account picker dialog closed without selecting an account.
                 // Notify users that they must pick an account to proceed.
@@ -85,7 +94,6 @@ public class addServiceAccount extends ActionBarActivity {
                     requestCode == REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR)
                     && resultCode == RESULT_OK) {
                 // Receiving a result that follows a GoogleAuthException, try auth again
-                Log.d("we have returned", TAG);
                 handleAuthorizeResult(resultCode, data);
                 return;
             }
@@ -94,17 +102,15 @@ public class addServiceAccount extends ActionBarActivity {
     }
     private void handleAuthorizeResult(int resultCode, Intent data) {
         if (data == null) {
-            //show("Unknown error, click the button again");
+            Toast.makeText(this, "Unknown error encountered", Toast.LENGTH_SHORT).show();
             return;
         }
         if (resultCode == RESULT_OK) {
-            Log.i(TAG, "Retrying");
-            new GetUsernameTask(addServiceAccount.this, mEmail, SCOPE).execute();
-            //getTask(this, mEmail, SCOPE).execute();
+            new GetTokenTask(addServiceAccount.this, mEmail, SCOPE).execute();
             return;
         }
         if (resultCode == RESULT_CANCELED) {
-            //show("User rejected authorization.");
+            Toast.makeText(this, "user has rejected this authorization", Toast.LENGTH_SHORT).show();
             return;
         }
         //show("Unknown error, click the button again");
@@ -134,6 +140,17 @@ public class addServiceAccount extends ActionBarActivity {
                 }
             }
         });
+    }
+
+    /** Checks whether the device currently has a network connection */
+    protected boolean isDeviceOnline() {
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            return true;
+        }
+        return false;
     }
 
 }
