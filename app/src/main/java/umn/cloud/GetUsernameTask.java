@@ -27,6 +27,7 @@ import java.util.zip.GZIPInputStream;
 
 /**
  * Created by AngusY on 3/14/15.
+ * Asyntask for fetching token and send Json to server
  */
 public class GetUsernameTask extends AsyncTask<Void, Void, Void> {
     addServiceAccount mActivity;
@@ -76,12 +77,8 @@ public class GetUsernameTask extends AsyncTask<Void, Void, Void> {
             return GoogleAuthUtil.getToken(mActivity, mEmail, mScope);
         } catch (UserRecoverableAuthException e) {
             Intent intent = (e).getIntent();
-            mActivity.startActivityForResult(intent,
-                    1002);
-            //Log.d("An exception has occured", e.toString());
-            // GooglePlayServices.apk is either old, disabled, or not present
-            // so we need to show the user some UI in the activity to recover.
-            //mActivity.handleException(userRecoverableException);
+            mActivity.handleException(e);  //User permission needed
+
         } catch (GoogleAuthException fatalException) {
             Log.d("An exception has occured", fatalException.toString());
             // Some other type of unrecoverable exception has occurred.
@@ -98,18 +95,9 @@ public class GetUsernameTask extends AsyncTask<Void, Void, Void> {
             // adding some keys
             jsonobj.put("AcessCode", code);
             jsonobj.put("name", "taiqiang");
-
-            // lets add some headers (nested JSON object)
-            /*JSONObject header = new JSONObject();
-            header.put("devicemodel", android.os.Build.MODEL); // Device model
-            header.put("deviceVersion", android.os.Build.VERSION.RELEASE); // Device OS version
-            header.put("language", Locale.getDefault().getISO3Language()); // Language*/
             jsonobj.put("userID", "taiqiang123");
             sendJson(jsonobj);
-            // Display the contents of the JSON objects
-            //buildref.setText(jsonobj.toString(2));
         } catch (JSONException ex) {
-            //buildref.setText("Error Occurred while building JSON");
             ex.printStackTrace();
         }
     }
@@ -122,9 +110,6 @@ public class GetUsernameTask extends AsyncTask<Void, Void, Void> {
             se.setContentType("application/json;charset=UTF-8");
             se.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
             httppostreq.setEntity(se);
-//        	httppostreq.setHeader("Accept", "application/json");
-//        	httppostreq.setHeader("Content-type", "application/json");
-//        	httppostreq.setHeader("User-Agent", "android");
             HttpResponse httpresponse = httpclient.execute(httppostreq);
             HttpEntity resultentity = httpresponse.getEntity();
             if(resultentity != null) {
