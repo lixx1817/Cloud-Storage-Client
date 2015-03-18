@@ -96,6 +96,8 @@ public class addServiceAccount extends ActionBarActivity {
     public void greetUser(View view){
         pickUserAccount();
     }
+
+
     public void startSelection(View view){
         Intent intent = new Intent(this, selectTargetAccount.class);
         startActivityForResult(intent,CODE_SELECT_TARGET_ACCOUNT);
@@ -115,7 +117,9 @@ public class addServiceAccount extends ActionBarActivity {
         if (requestCode == REQUEST_CODE_PICK_ACCOUNT) {
             if (resultCode == RESULT_OK) {
                 mEmail = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
-                new GetTokenTask(addServiceAccount.this, mEmail, SCOPE, REQUEST_CODE_RECOVER_FROM_AUTH_ERROR).execute();
+                EditText txtName = (EditText)findViewById(R.id.inputAccountName_new);
+                String nameString = txtName.getText().toString();
+                new GetTokenTask(addServiceAccount.this, mEmail, SCOPE, REQUEST_CODE_RECOVER_FROM_AUTH_ERROR,nameString).execute();
 
 
             } else if (resultCode == RESULT_CANCELED) {
@@ -124,13 +128,17 @@ public class addServiceAccount extends ActionBarActivity {
                 Toast.makeText(this, R.string.pick_account, Toast.LENGTH_SHORT).show();
             }
         }
-            else if ((requestCode == REQUEST_CODE_RECOVER_FROM_AUTH_ERROR ||
-                    requestCode == REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR)
-                    && resultCode == RESULT_OK) {
-                // Receiving a result that follows a GoogleAuthException, try auth again
-                handleAuthorizeResult(resultCode, data);
-                return;
-            }
+        else if ((requestCode == REQUEST_CODE_RECOVER_FROM_AUTH_ERROR ||
+                requestCode == REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR)
+                && resultCode == RESULT_OK) {
+            // Receiving a result that follows a GoogleAuthException, try auth again
+            handleAuthorizeResult(resultCode, data);
+            return;
+        }
+        else if(requestCode==CODE_SELECT_TARGET_ACCOUNT){
+
+            // TODO Define activity for selecting account
+        }
 
         // Later, more code will go here to handle the result from some exceptions...
     }
@@ -140,7 +148,9 @@ public class addServiceAccount extends ActionBarActivity {
             return;
         }
         if (resultCode == RESULT_OK) {
-            new GetTokenTask(addServiceAccount.this, mEmail, SCOPE, REQUEST_CODE_PICK_ACCOUNT).execute();
+            EditText txtName = (EditText)findViewById(R.id.inputAccountName_new);
+            String nameString = txtName.getText().toString();
+            new GetTokenTask(addServiceAccount.this, mEmail, SCOPE, REQUEST_CODE_PICK_ACCOUNT,nameString).execute();
             return;
         }
         if (resultCode == RESULT_CANCELED) {

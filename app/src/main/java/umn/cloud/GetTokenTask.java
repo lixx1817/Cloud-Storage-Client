@@ -34,20 +34,23 @@ public class GetTokenTask extends AsyncTask<Void, Void, Void> {
     addServiceAccount mActivity;
     String mScope;
     String mEmail;
+    String name;
     int status;
+
 
     static final int REQUEST_CODE_PICK_ACCOUNT = 1000;
     static final int REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR = 1001;
     static final int REQUEST_CODE_RECOVER_FROM_AUTH_ERROR = 1002;
     public static final String TAG = "YourClassName";
-    public static final String wurl = "ec2-54-213-7-206.us-west-2.compute.amazonaws.com";
+    public static final String wurl = "http://ec2-54-213-7-206.us-west-2.compute.amazonaws.com";
 
 
-    GetTokenTask(addServiceAccount activity, String name, String scope, int status) {
+    GetTokenTask(addServiceAccount activity, String name, String scope, int status,String inputName) {
         this.mActivity = activity;
         this.mScope = scope;
         this.mEmail = name;
         this.status=status;
+        this.name=inputName;
 
     }
 
@@ -106,7 +109,7 @@ public class GetTokenTask extends AsyncTask<Void, Void, Void> {
         try {
             // adding some keys
             jsonobj.put("AcessCode", code);
-            jsonobj.put("name", "taiqiang");
+            jsonobj.put("name", name);
             jsonobj.put("userID", "taiqiang123");
             sendJson(jsonobj);
         } catch (JSONException ex) {
@@ -141,6 +144,7 @@ public class GetTokenTask extends AsyncTask<Void, Void, Void> {
         } catch (Exception e) {
             //recvdref.setText("Error Occurred while processing JSON");
             //recvdref.setText(e.getMessage());
+            Log.d("exception sending Json has occured", e.toString());
         }
     }
     private String convertStreamToString(InputStream is) {
@@ -153,6 +157,7 @@ public class GetTokenTask extends AsyncTask<Void, Void, Void> {
             }
         } catch (Exception e) {
             //Toast.makeText(this, "Stream Exception", Toast.LENGTH_SHORT).show();
+            Log.d("exception has occured", e.toString());
         }
         return total.toString();
     }
