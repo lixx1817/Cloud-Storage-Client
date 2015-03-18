@@ -15,7 +15,7 @@ public class selectTargetAccount extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setListAdapter(new MobileArrayAdapter(this, MOBILE_OS));
+        //setListAdapter(new MobileArrayAdapter(this, MOBILE_OS));
 
     }
 

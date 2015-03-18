@@ -28,6 +28,7 @@ public class addServiceAccount extends ActionBarActivity {
     static final int REQUEST_CODE_PICK_ACCOUNT = 1000;
     static final int REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR = 1001;
     static final int REQUEST_CODE_RECOVER_FROM_AUTH_ERROR = 1002;
+    static final int CODE_SELECT_TARGET_ACCOUNT=2000;
     static final String googleDrive_Scope="https://www.googleapis.com/auth/drive.file ";
     static final String  googlePlus_Scope="https://www.googleapis.com/auth/plus.login";
      static final String SCOPE =
@@ -93,8 +94,11 @@ public class addServiceAccount extends ActionBarActivity {
         }};
 
     public void greetUser(View view){
-
         pickUserAccount();
+    }
+    public void startSelection(View view){
+        Intent intent = new Intent(this, selectTargetAccount.class);
+        startActivityForResult(intent,CODE_SELECT_TARGET_ACCOUNT);
     }
 
     public void pickUserAccount() {
