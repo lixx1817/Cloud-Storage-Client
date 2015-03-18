@@ -8,6 +8,7 @@
     <string name="provider_prompt">Choose a Provider</string>
     <string name="pick_account">You must pick an account to proceed</string>
     <string name="device_offline">Your device is currently offline, please connect to the internet before you proceed</string>
+    <string name="add_success">You have successfully add an account</string>
 
     <string-array name="provider_arrays">
         <item>Google Drive</item>

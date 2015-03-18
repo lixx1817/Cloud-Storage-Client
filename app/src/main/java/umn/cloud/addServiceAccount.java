@@ -8,9 +8,13 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.GooglePlayServicesAvailabilityException;
@@ -32,12 +36,20 @@ public class addServiceAccount extends ActionBarActivity {
 
     String mEmail; // Received from newChooseAccountIntent(); passed to getToken()
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         setContentView(R.layout.activity_add_service_account);
+        EditText txtName = (EditText)findViewById(R.id.inputAccountName_new);
+        txtName.addTextChangedListener(watch);
+        String nameString = txtName.getText().toString();
+        Button addAccount= (Button) findViewById(R.id.btnAddAccount);
+        addAccount.setEnabled(false);
     }
+
 
 
     @Override
@@ -62,6 +74,24 @@ public class addServiceAccount extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    TextWatcher watch = new TextWatcher(){
+        @Override
+        public void afterTextChanged(Editable arg0) {
+
+        }
+        @Override
+        public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+                                      int arg3) {
+            // TODO Auto-generated method stub
+        }
+        @Override
+        public void onTextChanged(CharSequence s, int a, int b, int c) {
+            // TODO Auto-generated method stub
+            Button addAccount= (Button) findViewById(R.id.btnAddAccount);
+            if(s.length()==0) addAccount.setEnabled(false);
+            else addAccount.setEnabled(true);
+        }};
+
     public void greetUser(View view){
 
         pickUserAccount();
@@ -81,7 +111,7 @@ public class addServiceAccount extends ActionBarActivity {
         if (requestCode == REQUEST_CODE_PICK_ACCOUNT) {
             if (resultCode == RESULT_OK) {
                 mEmail = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
-                new GetTokenTask(addServiceAccount.this, mEmail, SCOPE).execute();
+                new GetTokenTask(addServiceAccount.this, mEmail, SCOPE, REQUEST_CODE_RECOVER_FROM_AUTH_ERROR).execute();
 
 
             } else if (resultCode == RESULT_CANCELED) {
@@ -106,7 +136,7 @@ public class addServiceAccount extends ActionBarActivity {
             return;
         }
         if (resultCode == RESULT_OK) {
-            new GetTokenTask(addServiceAccount.this, mEmail, SCOPE).execute();
+            new GetTokenTask(addServiceAccount.this, mEmail, SCOPE, REQUEST_CODE_PICK_ACCOUNT).execute();
             return;
         }
         if (resultCode == RESULT_CANCELED) {

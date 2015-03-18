@@ -3,6 +3,7 @@ package umn.cloud;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
@@ -33,15 +34,21 @@ public class GetTokenTask extends AsyncTask<Void, Void, Void> {
     addServiceAccount mActivity;
     String mScope;
     String mEmail;
+    int status;
 
+    static final int REQUEST_CODE_PICK_ACCOUNT = 1000;
+    static final int REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR = 1001;
+    static final int REQUEST_CODE_RECOVER_FROM_AUTH_ERROR = 1002;
     public static final String TAG = "YourClassName";
     public static final String wurl = "ec2-54-213-7-206.us-west-2.compute.amazonaws.com";
 
 
-    GetTokenTask(addServiceAccount activity, String name, String scope) {
+    GetTokenTask(addServiceAccount activity, String name, String scope, int status) {
         this.mActivity = activity;
         this.mScope = scope;
         this.mEmail = name;
+        this.status=status;
+
     }
 
     /**
@@ -66,6 +73,11 @@ public class GetTokenTask extends AsyncTask<Void, Void, Void> {
 
         }
         return null;
+    }
+    @Override
+    protected void onPostExecute(Void result) {
+        if(status==REQUEST_CODE_PICK_ACCOUNT) Toast.makeText(mActivity, R.string.add_success, Toast.LENGTH_SHORT).show();
+
     }
 
     /**
