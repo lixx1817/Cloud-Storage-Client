@@ -34,7 +34,7 @@ public class MobileArrayAdapter extends ArrayAdapter<String> {
         // Change icon based on name
         String s = values[position];
 
-        System.out.println(s);
+        //System.out.println(s);
 
         if (s.equals("DropBox")) {
             imageView.setImageResource(R.drawable.dropboxicon);
