@@ -30,7 +30,7 @@ public class GetTokenTask extends AsyncTask<Void, Void, Void> {
     static final int REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR = 1001;
     static final int REQUEST_CODE_RECOVER_FROM_AUTH_ERROR = 1002;
     public static final String TAG = "YourClassName";
-    public static final String wurl = "http://ec2-54-213-7-206.us-west-2.compute.amazonaws.com";
+    public static final String register_url = "http://ec2-54-213-7-206.us-west-2.compute.amazonaws.com:8080/new_acc";
 
 
     GetTokenTask(addServiceAccount activity, String name, String scope, int status,String inputName) {
@@ -99,8 +99,7 @@ public class GetTokenTask extends AsyncTask<Void, Void, Void> {
             // adding some keys
             jsonobj.put("AcessCode", code);
             jsonobj.put("name", name);
-            jsonobj.put("userID", "taiqiang123");
-            jsender.sendJsonObject(jsonobj,wurl);
+            jsender.sendJsonObject(jsonobj,register_url);
         } catch (JSONException ex) {
             ex.printStackTrace();
         }
