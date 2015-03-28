@@ -2,7 +2,6 @@ package umn.cloud;
 
 import android.util.Log;
 
-import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -10,13 +9,13 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.zip.GZIPInputStream;
 
 /**
  * Created by AngusY on 3/19/15.
@@ -25,7 +24,10 @@ public class jsonSender {
 
 
 
-    public void sendJsonObject(JSONObject jsonobj, String url)throws IOException {
+    public String sendJsonObject(JSONObject jsonobj, String url, String resultWanted)throws IOException {
+
+        String Jsonresult="";
+
         try {
             DefaultHttpClient httpclient = new DefaultHttpClient();
             HttpPost httppostreq = new HttpPost(url);
@@ -37,24 +39,25 @@ public class jsonSender {
             HttpResponse httpresponse = httpclient.execute(httppostreq);
             HttpEntity resultentity = httpresponse.getEntity();
             if(resultentity != null) {
-                InputStream inputstream = resultentity.getContent();
-                Header contentencoding = httpresponse.getFirstHeader("Content-Encoding");
-                if(contentencoding != null && contentencoding.getValue().equalsIgnoreCase("gzip")) {
-                    inputstream = new GZIPInputStream(inputstream);
-                }
+                String retSrc = EntityUtils.toString(resultentity);
+                // parsing JSON
+                JSONObject result = new JSONObject(retSrc); //Convert String to JSON Object
 
-                String resultstring = convertStreamToString(inputstream);
-                inputstream.close();
-                resultstring = resultstring.substring(1,resultstring.length()-1);
-                //recvdref.setText(resultstring + "\n\n" + httppostreq.toString().getBytes());
-//        		JSONObject recvdjson = new JSONObject(resultstring);
-//            	recvdref.setText(recvdjson.toString(2));
+                Jsonresult = result.optString(resultWanted);
+                Log.d("take that bitch!",Jsonresult);
+
+                //JSONArray tokenList = result.getJSONArray("srvAccID");
+                //JSONObject oj = tokenList.getJSONObject(0);
+                //String token = oj.getString("name");
+            }else{
+                // TODO Define something at here;
             }
         } catch (Exception e) {
             //recvdref.setText("Error Occurred while processing JSON");
             //recvdref.setText(e.getMessage());
             Log.d("exception sending Json has occured", e.toString());
         }
+        return Jsonresult;
     }
     private String convertStreamToString(InputStream is) {
         String line = "";

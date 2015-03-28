@@ -53,8 +53,9 @@ public class GetTokenTask extends AsyncTask<Void, Void, Void> {
             if (token != null) {
                 // Insert the good stuff here.
                 // Use the token to access the user's Google data.
-                createJson(token);
+                String check= createJson(token);
                 Log.d("This is the output", token);
+                if(!check.equals("Success")){ Toast.makeText(mActivity, R.string.add_fail, Toast.LENGTH_SHORT).show();}
 
             }
         } catch (IOException e) {
@@ -91,20 +92,19 @@ public class GetTokenTask extends AsyncTask<Void, Void, Void> {
         return null;
     }
 
-    protected void createJson(String code) throws IOException{
+    protected String createJson(String code) throws IOException{
         JSONObject jsonobj; // declared locally so that it destroys after serving its purpose
         jsonobj = new JSONObject();
         jsonSender jsender=new jsonSender();
+        String result="";
         try {
             // adding some keys
             jsonobj.put("AcessCode", code);
             jsonobj.put("name", name);
-            jsender.sendJsonObject(jsonobj,register_url);
+            result=jsender.sendJsonObject(jsonobj,register_url,"statusMsg");
         } catch (JSONException ex) {
             ex.printStackTrace();
         }
+        return result;
     }
-
-
-
 }
