@@ -2,20 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <TextView android:id="@+id/service_name"
+    <CheckedTextView android:id="@+id/service_name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:checkMark="?android:attr/listChoiceIndicatorMultiple"/>
 
-    <TextView android:id="@+id/service_srvId"
+    <CheckedTextView android:id="@+id/service_srvId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="3dp"
         android:layout_toRightOf="@id/service_name"/>
-
-    <TextView android:id="@+id/service_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/service_name" />
-
 
 </RelativeLayout>
