@@ -58,11 +58,6 @@ public class accountListAdapter extends ArrayAdapter<serviceAccount> {
         TextView text1 = (TextView) v.findViewById(R.id.service_srvId);
         text1.setText(c.getSrvId());
 
-        TextView text2 = (TextView) v.findViewById(R.id.service_email);
-        text2.setText(c.getEmail());
-
-
-
         return v;
 
     }

@@ -57,13 +57,15 @@ public class getSAccountTask extends AsyncTask<String, Void, List<serviceAccount
                 baos.write(b);
 
             String JSONResp = new String(baos.toByteArray());
-            Log.d("print this shit man!!", JSONResp);
+
+            Log.d("this is the json string",JSONResp);
 
             JSONObject arr = new JSONObject(JSONResp);
             JSONArray Jarray = arr.getJSONArray("lst");
-            for (int i=0; i < arr.length(); i++) {
+            for (int i=0; i < Jarray.length(); i++) {
                 result.add(convertContact(Jarray.getJSONObject(i)));
             }
+            //for(int i=0;i<result.size();i++) Log.d("this is the shit",result.get(i).toString());
 
             return result;
         }
@@ -85,6 +87,8 @@ public class getSAccountTask extends AsyncTask<String, Void, List<serviceAccount
         //String email=obj.getString("email");
         return new serviceAccount(name, surname);
     }
+
+
 
 
 }
