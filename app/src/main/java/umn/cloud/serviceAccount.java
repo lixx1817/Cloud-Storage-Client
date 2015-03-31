@@ -4,9 +4,12 @@ package umn.cloud;
  * Created by AngusY on 3/29/15.
  */
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
-public class serviceAccount implements Serializable {
+public class serviceAccount implements Serializable, Parcelable {
 
     private String name;
     private String srvId;
@@ -47,6 +50,23 @@ public class serviceAccount implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    @Override
+    public int describeContents()
+    {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+    @Override
+    public void writeToParcel(Parcel dest, int flag)
+    {
+        // TODO Auto-generated method stub
+        dest.writeString(name);
+        dest.writeString(srvId);
+        //dest.writeInt(email);
+    }
+
+
 
 
 

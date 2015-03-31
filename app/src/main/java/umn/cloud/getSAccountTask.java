@@ -1,7 +1,6 @@
 package umn.cloud;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,7 +57,7 @@ public class getSAccountTask extends AsyncTask<String, Void, List<serviceAccount
 
             String JSONResp = new String(baos.toByteArray());
 
-            Log.d("this is the json string",JSONResp);
+            //Log.d("this is the json string",JSONResp);
 
             JSONObject arr = new JSONObject(JSONResp);
             JSONArray Jarray = arr.getJSONArray("lst");

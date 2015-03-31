@@ -1,20 +1,22 @@
 package umn.cloud;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.CheckedTextView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class selectTargetAccount extends ListActivity {
 
     public accountListAdapter adpt;
     public static final String list_url = "http://ec2-54-213-7-206.us-west-2.compute.amazonaws.com:8080/list_srvacc";
 //    public final ProgressDialog dialog = new ProgressDialog(selectTargetAccount.this);
-    List<serviceAccount> userChoices= new ArrayList<serviceAccount>();
+    ArrayList<serviceAccount> userChoices= new ArrayList<serviceAccount>();
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,18 +38,33 @@ public class selectTargetAccount extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
 
         //get selected items
-        if (v != null) {
+       serviceAccount newChoice=adpt.getItem(position);
+       if(!userChoices.contains(newChoice)) userChoices.add(newChoice);
+        /*if (v != null) {
             CheckedTextView checkBox = (CheckedTextView)v.findViewById(R.id.service_name);
             checkBox.toString();
             if(checkBox.isChecked()) {
                 userChoices.add(adpt.getItem(position));
             }
-        }
+        }*/
         //serviceAccount selectedValue =  adpt.getItem(position);
         //userChoices.add(selectedValue);
 
         //Toast.makeText(this, selectedValue, Toast.LENGTH_SHORT).show();
 
+    }
+
+    public void submit(View v){
+        finish();
+    }
+    @Override
+    public void finish() {
+        for(serviceAccount s: userChoices){
+        Log.d("this is my choice", s.toString());}
+        Intent intent = new Intent();
+        intent.putParcelableArrayListExtra("selectedlist", userChoices);
+        setResult(RESULT_OK, intent);
+        super.finish();
     }
 
 }
