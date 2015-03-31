@@ -55,15 +55,15 @@ public class selectTargetAccount extends ListActivity {
     }
 
     public void submit(View v){
+        for(serviceAccount s: userChoices){
+            Log.d("this is my choice", s.toString());}
+        Intent resultIntent = new Intent();
+        resultIntent.putParcelableArrayListExtra("user.selection", userChoices);
+        setResult(RESULT_OK, resultIntent);
         finish();
     }
     @Override
     public void finish() {
-        for(serviceAccount s: userChoices){
-        Log.d("this is my choice", s.toString());}
-        Intent intent = new Intent();
-        intent.putParcelableArrayListExtra("selectedlist", userChoices);
-        setResult(RESULT_OK, intent);
         super.finish();
     }
 

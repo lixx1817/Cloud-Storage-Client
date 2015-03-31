@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +22,8 @@ import com.google.android.gms.auth.GooglePlayServicesAvailabilityException;
 import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.google.android.gms.common.AccountPicker;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+
+import java.util.ArrayList;
 
 
 public class addServiceAccount extends ActionBarActivity {
@@ -138,6 +141,16 @@ public class addServiceAccount extends ActionBarActivity {
         else if(requestCode==CODE_SELECT_TARGET_ACCOUNT){
 
             // TODO Define activity for selecting account
+            ArrayList<serviceAccount> targetAccountList=data.getParcelableArrayListExtra("user.selection");
+            //Bundle userSelection = this.getIntent().getBundleExtra("search.resultSet");
+            if(targetAccountList!=null) {
+                for(serviceAccount t: targetAccountList){
+                    Log.d("debug output for receiver", t.toString());
+                }
+            }
+            else Log.d("None!",TAG);
+
+
         }
 
         // Later, more code will go here to handle the result from some exceptions...
