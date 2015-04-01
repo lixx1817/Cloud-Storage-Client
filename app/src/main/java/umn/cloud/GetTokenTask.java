@@ -96,8 +96,15 @@ public class GetTokenTask extends AsyncTask<Void, Void, Void> {
     }
 
     protected String createJson(String code) throws IOException{
+        ArrayList<targetSrvAccInfo> jsonList=new ArrayList<targetSrvAccInfo>();
         if(targetList!=null){
-            //TODO write conversion and put into json sender
+            for(serviceAccount t:targetList){
+                //Log.d("testing 123",t.getSrvId());
+                int id=Integer.parseInt(t.getName());
+                String time="03:00";  //TODO implement instead using raw time string
+                jsonList.add(new targetSrvAccInfo(id,time));
+            }
+
         }
         JSONObject jsonobj; // declared locally so that it destroys after serving its purpose
         jsonobj = new JSONObject();
@@ -107,6 +114,7 @@ public class GetTokenTask extends AsyncTask<Void, Void, Void> {
             // adding some keys
             jsonobj.put("AcessCode", code);
             jsonobj.put("name", name);
+            jsonobj.put("targetSrvAccInfo",jsonList);
             result=jsender.sendJsonObject(jsonobj,register_url,"statusMsg");
         } catch (JSONException ex) {
             ex.printStackTrace();

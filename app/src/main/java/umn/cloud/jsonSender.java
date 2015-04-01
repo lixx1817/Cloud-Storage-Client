@@ -31,6 +31,7 @@ public class jsonSender {
         try {
             DefaultHttpClient httpclient = new DefaultHttpClient();
             HttpPost httppostreq = new HttpPost(url);
+            Log.d("Json object bith!", jsonobj.toString());
             StringEntity se = new StringEntity(jsonobj.toString());
             //se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
             se.setContentType("application/json;charset=UTF-8");

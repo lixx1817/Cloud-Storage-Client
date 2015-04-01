@@ -66,7 +66,7 @@ public class getSAccountTask extends AsyncTask<String, Void, List<serviceAccount
             for (int i=0; i < Jarray.length(); i++) {
                 result.add(convertContact(Jarray.getJSONObject(i)));
             }
-            //for(int i=0;i<result.size();i++) Log.d("this is the shit",result.get(i).toString());
+            //for(int i=0;i<result.size();i++) Log.d("this is the shit", result.get(i).getSrvId() );
 
             return result;
         }
@@ -89,9 +89,9 @@ public class getSAccountTask extends AsyncTask<String, Void, List<serviceAccount
     }
     private serviceAccount convertContact(JSONObject obj) throws JSONException {
         String name = obj.getString("name");
-        String surname = obj.getString("srvID");
+        String srvID = obj.getString("srvID");
         //String email=obj.getString("email");
-        return new serviceAccount(name, surname);
+        return new serviceAccount(name,srvID);
     }
 
 
