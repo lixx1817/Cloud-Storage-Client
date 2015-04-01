@@ -10,6 +10,7 @@
     <string name="device_offline">Your device is currently offline, please connect to the internet before you proceed</string>
     <string name="add_success">You have successfully add an account</string>
     <string name="add_fail">There was an error in adding the account, try it later</string>
+    <string name="select_intro">Please select the account that you wish to edit</string>
 
     <string-array name="provider_arrays">
         <item>Google Drive</item>
@@ -18,5 +19,6 @@
 
     <string name="title_activity_select_target_account">selectTargetAccount</string>
     <string name="title_activity_set_sync_time">setSyncTime</string>
+    <string name="title_activity_edit_service_account">editServiceAccount</string>
 
 </resources>

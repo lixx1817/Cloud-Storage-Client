@@ -3,7 +3,6 @@ package umn.cloud;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -55,8 +54,6 @@ public class selectTargetAccount extends ListActivity {
     }
 
     public void submit(View v){
-        for(serviceAccount s: userChoices){
-            Log.d("this is my choice", s.toString());}
         Intent resultIntent = new Intent();
         resultIntent.putParcelableArrayListExtra("user.selection", userChoices);
         setResult(RESULT_OK, resultIntent);

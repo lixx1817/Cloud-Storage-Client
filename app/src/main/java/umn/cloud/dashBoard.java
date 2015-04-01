@@ -43,6 +43,13 @@ public class dashBoard extends ActionBarActivity {
         Intent intent = new Intent(this, addServiceAccount.class);
         startActivity(intent);
     }
+
+    public void editServiceAccount (View view) {
+        // navigation to addServiceAccount
+        Intent intent = new Intent(this, editServiceAccount.class);
+        startActivity(intent);
+    }
+
     static final int REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR = 1001;
 
     /**

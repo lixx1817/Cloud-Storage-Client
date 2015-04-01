@@ -25,7 +25,8 @@
         android:id="@+id/editService_Btn"
         android:layout_below="@+id/addService_Btn"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="62dp" />
+        android:layout_marginTop="62dp"
+        android:onClick="editServiceAccount"/>
 
     <Button
         android:layout_width="wrap_content"

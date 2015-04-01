@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="umn.cloud" >
+
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <meta-data android:name="com.google.android.gms.version"
+        <meta-data
+            android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
         <activity
             android:name=".dashBoard"
             android:label="@string/app_name" >
@@ -21,7 +25,7 @@
         <activity
             android:name=".addServiceAccount"
             android:label="@string/title_activity_add_service_account"
-            android:parentActivityName=".dashBoard">
+            android:parentActivityName=".dashBoard" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".dashBoard" />
@@ -29,14 +33,19 @@
         <activity
             android:name=".selectTargetAccount"
             android:label="@string/title_activity_select_target_account"
-            android:parentActivityName=".addServiceAccount">
+            android:parentActivityName=".addServiceAccount" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".addServiceAccount" />>
+                android:value=".addServiceAccount" />
+>
         </activity>
         <activity
             android:name=".setSyncTime"
             android:label="@string/title_activity_set_sync_time" >
+        </activity>
+        <activity
+            android:name=".editServiceAccount"
+            android:label="@string/title_activity_edit_service_account" >
         </activity>
     </application>
 

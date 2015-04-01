@@ -21,12 +21,14 @@ public class getSAccountTask extends AsyncTask<String, Void, List<serviceAccount
 
 
     selectTargetAccount mActivity;
+    editServiceAccount nActivity;
     //public final ProgressDialog dialog = new ProgressDialog(mActivity);
     public static final String list_url = "http://ec2-54-213-7-206.us-west-2.compute.amazonaws.com:8080/list_srvacc";
 
     getSAccountTask(selectTargetAccount mActivity){
         this.mActivity=mActivity;
     }
+    getSAccountTask(editServiceAccount nActivity){this.nActivity=nActivity;}
 
     @Override
     protected void onPreExecute() {
@@ -77,8 +79,13 @@ public class getSAccountTask extends AsyncTask<String, Void, List<serviceAccount
     protected void onPostExecute(List<serviceAccount> result) {
         super.onPostExecute(result);
         //mActivity.dialog.dismiss();
+        if(mActivity!=null){
         mActivity.adpt.setItemList(result);
-        mActivity.adpt.notifyDataSetChanged();
+        mActivity.adpt.notifyDataSetChanged();}
+        else{
+            nActivity.adpt.setItemList(result);
+            nActivity.adpt.notifyDataSetChanged();
+        }
     }
     private serviceAccount convertContact(JSONObject obj) throws JSONException {
         String name = obj.getString("name");
