@@ -39,6 +39,7 @@ public class addServiceAccount extends ActionBarActivity {
     static final String TAG="test";
 
     String mEmail; // Received from newChooseAccountIntent(); passed to getToken()
+    ArrayList<serviceAccount> targetAccountList=new ArrayList<serviceAccount>();
 
 
 
@@ -122,7 +123,7 @@ public class addServiceAccount extends ActionBarActivity {
                 mEmail = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
                 EditText txtName = (EditText)findViewById(R.id.inputAccountName_new);
                 String nameString = txtName.getText().toString();
-                new GetTokenTask(addServiceAccount.this, mEmail, SCOPE, REQUEST_CODE_RECOVER_FROM_AUTH_ERROR,nameString).execute();
+                new GetTokenTask(addServiceAccount.this, mEmail, SCOPE, REQUEST_CODE_RECOVER_FROM_AUTH_ERROR,nameString,targetAccountList).execute();
 
 
             } else if (resultCode == RESULT_CANCELED) {
@@ -141,7 +142,7 @@ public class addServiceAccount extends ActionBarActivity {
         else if(requestCode==CODE_SELECT_TARGET_ACCOUNT){
 
             // TODO Define activity for selecting account
-            ArrayList<serviceAccount> targetAccountList=data.getParcelableArrayListExtra("user.selection");
+            targetAccountList=data.getParcelableArrayListExtra("user.selection");
             //Bundle userSelection = this.getIntent().getBundleExtra("search.resultSet");
             if(targetAccountList!=null) {
                 for(serviceAccount t: targetAccountList){
@@ -163,7 +164,7 @@ public class addServiceAccount extends ActionBarActivity {
         if (resultCode == RESULT_OK) {
             EditText txtName = (EditText)findViewById(R.id.inputAccountName_new);
             String nameString = txtName.getText().toString();
-            new GetTokenTask(addServiceAccount.this, mEmail, SCOPE, REQUEST_CODE_PICK_ACCOUNT,nameString).execute();
+            new GetTokenTask(addServiceAccount.this, mEmail, SCOPE, REQUEST_CODE_PICK_ACCOUNT,nameString,targetAccountList).execute();
             return;
         }
         if (resultCode == RESULT_CANCELED) {

@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by AngusY on 3/14/15.
@@ -24,6 +25,7 @@ public class GetTokenTask extends AsyncTask<Void, Void, Void> {
     String mEmail;
     String name;
     int status;
+    ArrayList<serviceAccount> targetList=new ArrayList<serviceAccount>();
 
 
     static final int REQUEST_CODE_PICK_ACCOUNT = 1000;
@@ -33,12 +35,13 @@ public class GetTokenTask extends AsyncTask<Void, Void, Void> {
     public static final String register_url = "http://ec2-54-213-7-206.us-west-2.compute.amazonaws.com:8080/new_acc";
 
 
-    GetTokenTask(addServiceAccount activity, String name, String scope, int status,String inputName) {
+    GetTokenTask(addServiceAccount activity, String name, String scope, int status,String inputName,ArrayList<serviceAccount> list) {
         this.mActivity = activity;
         this.mScope = scope;
         this.mEmail = name;
         this.status=status;
         this.name=inputName;
+        this.targetList=list;
 
     }
 
@@ -55,7 +58,7 @@ public class GetTokenTask extends AsyncTask<Void, Void, Void> {
                 // Use the token to access the user's Google data.
                 String check= createJson(token);
                 Log.d("This is the output", token);
-                if(!check.equals("Success")){ Toast.makeText(mActivity, R.string.add_fail, Toast.LENGTH_SHORT).show();}
+                //if(!check.equals("Success")){ Toast.makeText(mActivity, R.string.add_fail, Toast.LENGTH_SHORT).show();}
 
             }
         } catch (IOException e) {
@@ -93,6 +96,9 @@ public class GetTokenTask extends AsyncTask<Void, Void, Void> {
     }
 
     protected String createJson(String code) throws IOException{
+        if(targetList!=null){
+            //TODO write conversion and put into json sender
+        }
         JSONObject jsonobj; // declared locally so that it destroys after serving its purpose
         jsonobj = new JSONObject();
         jsonSender jsender=new jsonSender();
