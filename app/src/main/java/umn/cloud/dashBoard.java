@@ -47,6 +47,7 @@ public class dashBoard extends ActionBarActivity {
     public void editServiceAccount (View view) {
         // navigation to addServiceAccount
         Intent intent = new Intent(this, editServiceAccount.class);
+
         startActivity(intent);
     }
 

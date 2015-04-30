@@ -4,6 +4,7 @@ import android.util.Log;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.StatusLine;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -35,10 +36,13 @@ public class jsonSender {
             StringEntity se = new StringEntity(jsonobj.toString());
             //se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
             se.setContentType("application/json;charset=UTF-8");
-            se.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
+            se.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
             httppostreq.setEntity(se);
             HttpResponse httpresponse = httpclient.execute(httppostreq);
+
             HttpEntity resultentity = httpresponse.getEntity();
+            StatusLine line=httpresponse.getStatusLine();
+            Log.d("attached http response", convertStreamToString(resultentity.getContent()));
             if(resultentity != null) {
                 String retSrc = EntityUtils.toString(resultentity);
                 // parsing JSON

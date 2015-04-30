@@ -38,6 +38,7 @@
         android:layout_alignLeft="@+id/editService_Btn"
         android:layout_alignStart="@+id/editService_Btn"
         android:layout_alignRight="@+id/editService_Btn"
-        android:layout_alignEnd="@+id/editService_Btn" />
+        android:layout_alignEnd="@+id/editService_Btn"
+        android:onClick="editServiceAccount"/>
 
 </RelativeLayout>

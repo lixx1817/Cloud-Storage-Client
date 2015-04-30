@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by AngusY on 3/14/15.
@@ -112,10 +113,12 @@ public class GetTokenTask extends AsyncTask<Void, Void, Void> {
         String result="";
         try {
             // adding some keys
-            jsonobj.put("AcessCode", code);
+            List<serviceAccount> empty=new ArrayList<serviceAccount>();
+            jsonobj.put("accessCode", code);
             jsonobj.put("name", name);
-            jsonobj.put("targetSrvAccInfo",jsonList);
+            jsonobj.put("targetSrvAccInfo",null);
             result=jsender.sendJsonObject(jsonobj,register_url,"statusMsg");
+            Log.d("this is the response", result);
         } catch (JSONException ex) {
             ex.printStackTrace();
         }

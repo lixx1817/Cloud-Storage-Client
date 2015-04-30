@@ -94,7 +94,4 @@ public class getSAccountTask extends AsyncTask<String, Void, List<serviceAccount
         return new serviceAccount(name,srvID);
     }
 
-
-
-
 }

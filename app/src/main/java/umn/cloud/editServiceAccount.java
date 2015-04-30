@@ -1,22 +1,24 @@
 package umn.cloud;
 
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 
-public class editServiceAccount extends ActionBarActivity {
+public class editServiceAccount extends ListActivity {
 
     accountListAdapter adpt=null;
     public static final String list_url = "http://ec2-54-213-7-206.us-west-2.compute.amazonaws.com:8080/list_srvacc";
     //    public final ProgressDialog dialog = new ProgressDialog(selectTargetAccount.this);
-    ArrayList<serviceAccount> userChoices= new ArrayList<serviceAccount>();
+    serviceAccount userChoice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +58,20 @@ public class editServiceAccount extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void startSelection(View view){
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+
+        //get selected items
+        userChoice=adpt.getItem(position);
+        Log.d("this is the user choice", userChoice.toString());
+
+
+    }
+
+
+    public void submit(View view){
         Intent intent = new Intent(this, selectTargetAccount.class);
-        startActivity(intent);
+        if(userChoice !=null) startActivity(intent);
+        else Toast.makeText(this, "Plese select a account first", Toast.LENGTH_SHORT).show();
     }
 }

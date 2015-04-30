@@ -20,5 +20,6 @@
     <string name="title_activity_select_target_account">selectTargetAccount</string>
     <string name="title_activity_set_sync_time">setSyncTime</string>
     <string name="title_activity_edit_service_account">editServiceAccount</string>
+    <string name="title_activity_select_single_target_account">selectSingleTargetAccount</string>
 
 </resources>

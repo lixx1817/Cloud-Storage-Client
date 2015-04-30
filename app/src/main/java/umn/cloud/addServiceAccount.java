@@ -35,7 +35,7 @@ public class addServiceAccount extends ActionBarActivity {
     static final String googleDrive_Scope="https://www.googleapis.com/auth/drive.file ";
     static final String  googlePlus_Scope="https://www.googleapis.com/auth/plus.login";
      static final String SCOPE =
-            "oauth2:server:client_id:979484502896-bu5qe6a14sgptmnamihtof8skbfgfbe5.apps.googleusercontent.com:api_scope:"+googleDrive_Scope+googlePlus_Scope;
+            "oauth2:server:client_id:979484502896-a7pjq3r1ksmprminduh5b31t445l6n86.apps.googleusercontent.com:api_scope:"+googleDrive_Scope+googlePlus_Scope;
     static final String TAG="test";
 
     String mEmail; // Received from newChooseAccountIntent(); passed to getToken()
